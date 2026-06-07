@@ -1,345 +1,463 @@
-/* === Reset / Base === */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Arial', sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+:root {
+  --marine: #1a3a5c;
+  --marine-light: #2a5a8c;
+  --marine-glow: #3a8fd4;
+  --pirate: #8b1a1a;
+  --pirate-light: #c0392b;
+  --pirate-glow: #e74c3c;
+  --revo: #7a3a00;
+  --revo-light: #c0611a;
+  --revo-glow: #e67e22;
+  --bg: #0a0e1a;
+  --bg2: #0f1525;
+  --bg3: #141c30;
+  --gold: #d4af37;
+  --gold-light: #f0d060;
+  --text: #e8e0d0;
+  --text-muted: #9a9080;
+  --border: rgba(212,175,55,0.25);
+  --border-glow: rgba(212,175,55,0.5);
 }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background-color: #f5f5f5;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  color: #111;
+  background: var(--bg);
+  font-family: 'Crimson Text', Georgia, serif;
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.6;
 }
 
-header {
-  background: linear-gradient(90deg, #1E3AAE, #4FAFFF);
-  padding: 1rem;
+.wrap {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem 3rem;
+}
+
+@media (min-width: 900px) {
+  .hero h1 { font-size: 2.6rem; }
+  .nav { gap: 12px; padding: 1.4rem 2rem; }
+  .nav-btn { font-size: 0.85rem; padding: 8px 22px; }
+  .intro-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .section { padding: 2rem 0; }
+}
+
+/* ── HERO ── */
+.hero {
   text-align: center;
-  color: #fff;
-  text-shadow: 1px 1px #000;
+  padding: 2.5rem 1rem 2rem;
+  border-bottom: 1px solid var(--border);
   position: relative;
 }
-
-header .logo {
-  max-width: 180px;
-  display: block;
-  margin: 0 auto 0.5rem auto;
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(212,175,55,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-skull { font-size: 2rem; margin-bottom: 0.5rem; }
+.hero h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  margin-bottom: 0.3rem;
+}
+.hero-sub {
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-style: italic;
 }
 
-main {
-  flex: 1;
-  padding: 1rem;
-}
-
-footer {
-  background: linear-gradient(90deg, #1E3AAE, #4FAFFF);
-  text-align: center;
-  padding: 1rem;
-  font-size: 0.9rem;
-  color: #fff;
-  text-shadow: 1px 1px #000;
-}
-
-/* ===== Introduction ===== */
-.introduction {
-  background-color: rgba(255, 250, 230, 0.95);
-  padding: 1rem;
-  border-radius: 10px;
-  margin-bottom: 1rem;
-}
-
-.introduction h2 {
-  margin-top: 1rem;
-  color: #1E3AAE;
-}
-
-/* ===== Navigation ===== */
-.role-navigation {
+/* ── NAV ── */
+.nav {
   display: flex;
   justify-content: center;
-  margin: 1rem 0;
-  gap: 0.5rem;
+  gap: 8px;
+  padding: 1.2rem 1rem;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
 }
-
-.filter-btn {
-  padding: 0.5rem 1rem;
-  border: none;
-  background-color: #EB5757;
-  color: #fff;
-  font-weight: bold;
+.nav-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
   cursor: pointer;
-  border-radius: 5px;
-  transition: 0.2s;
+  transition: all 0.2s;
+  background: transparent;
+  color: var(--text-muted);
+}
+.nav-btn:hover { border-color: var(--gold); color: var(--gold); }
+.nav-btn.active-all   { border-color: var(--gold);       color: var(--gold);       background: rgba(212,175,55,0.08); }
+.nav-btn.active-rules { border-color: var(--gold-light); color: var(--gold-light); background: rgba(240,208,96,0.08); }
+.nav-btn.active-marine{ border-color: var(--marine-glow);color: var(--marine-glow);background: rgba(58,143,212,0.1);  }
+.nav-btn.active-pirate{ border-color: var(--pirate-glow);color: var(--pirate-glow);background: rgba(231,76,60,0.1);   }
+.nav-btn.active-revo  { border-color: var(--revo-glow);  color: var(--revo-glow);  background: rgba(230,126,34,0.1);  }
+
+/* ── SECTIONS ── */
+.section { padding: 1.5rem 0; display: none; }
+.section.visible { display: block; }
+
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  text-transform: uppercase;
 }
 
-.filter-btn:hover {
-  background-color: #FF7F50;
+/* ── INTRO ── */
+.intro-desc {
+  padding: 0.5rem 0 1rem;
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.95rem;
 }
 
-/* ===== Rôles ===== */
-#roles-container {
+.intro-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.faction-pill {
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  border: 1px solid;
+  text-align: center;
+}
+.faction-pill.marine { border-color: rgba(58,143,212,0.4);  background: rgba(26,58,92,0.4);   }
+.faction-pill.pirate { border-color: rgba(231,76,60,0.4);   background: rgba(139,26,26,0.4);  }
+.faction-pill.revo   { border-color: rgba(230,126,34,0.4);  background: rgba(122,58,0,0.4);   }
+.faction-pill .pill-icon { font-size: 1.8rem; margin-bottom: 0.4rem; }
+.faction-pill .pill-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+.faction-pill.marine .pill-name { color: var(--marine-glow); }
+.faction-pill.pirate .pill-name { color: var(--pirate-glow); }
+.faction-pill.revo   .pill-name { color: var(--revo-glow);   }
+.faction-pill p { font-size: 0.85rem; color: var(--text-muted); font-style: italic; line-height: 1.4; }
+
+/* ── VICTORY BOX ── */
+.victory-box {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  background: rgba(212,175,55,0.04);
+  margin-top: 0.5rem;
+}
+.victory-box h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.06em;
+}
+.victory-item { display: flex; align-items: baseline; gap: 10px; margin-bottom: 0.4rem; font-size: 0.9rem; }
+.victory-item .icon { font-size: 1rem; flex-shrink: 0; }
+.victory-item .cond { color: var(--text-muted); }
+
+/* ── RULES ── */
+.rules-list { list-style: none; }
+.rules-list li {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(212,175,55,0.1);
+  font-size: 0.95rem;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  color: var(--text);
+}
+.rules-list li::before {
+  content: '⚓';
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  margin-top: 3px;
+  opacity: 0.5;
+}
+.rules-list li:last-child { border-bottom: none; }
+
+/* ── CARDS HEADER ── */
+.cards-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.cards-header .faction-icon { font-size: 1.5rem; }
+.cards-header h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+.cards-header.marine h2 { color: var(--marine-glow); }
+.cards-header.pirate h2 { color: var(--pirate-glow); }
+.cards-header.revo   h2 { color: var(--revo-glow);   }
+
+/* ── ROLE CARDS ── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 900px) {
+  .cards-grid {
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 18px;
+  }
+  .role-card { padding: 1.3rem 1.5rem 1.5rem; }
+  .role-card .role-name { font-size: 1.1rem; }
+  .role-card .role-body { font-size: 0.95rem; }
+  .role-card .note { font-size: 0.88rem; }
+  .victory-box { padding: 1.25rem 1.75rem; }
 }
 
 .role-card {
   border-radius: 10px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  padding: 0.5rem;
+  border: 1px solid;
+  padding: 1rem 1.1rem 1.1rem;
+  cursor: default;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.role-card:hover { transform: translateY(-2px); }
+
+.role-card.marine { border-color: rgba(58,143,212,0.35);  background: rgba(26,58,92,0.3);   }
+.role-card.pirate { border-color: rgba(231,76,60,0.35);   background: rgba(139,26,26,0.25); }
+.role-card.revo   { border-color: rgba(230,126,34,0.35);  background: rgba(122,58,0,0.25);  }
+
+.role-card.marine:hover { border-color: rgba(58,143,212,0.7);  box-shadow: 0 4px 20px rgba(58,143,212,0.15);  }
+.role-card.pirate:hover { border-color: rgba(231,76,60,0.7);   box-shadow: 0 4px 20px rgba(231,76,60,0.15);   }
+.role-card.revo:hover   { border-color: rgba(230,126,34,0.7);  box-shadow: 0 4px 20px rgba(230,126,34,0.15);  }
+
+.role-card .card-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+.role-card .role-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  font-weight: 700;
+}
+.role-card.marine .role-name { color: var(--marine-glow); }
+.role-card.pirate .role-name { color: var(--pirate-glow); }
+.role-card.revo   .role-name { color: var(--revo-glow);   }
+
+.role-card .role-title {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+.role-card .role-body { font-size: 0.85rem; color: var(--text); line-height: 1.5; }
+
+.role-card .note {
+  margin-top: 0.5rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--text-muted);
+}
+.role-card.marine .note { background: rgba(58,143,212,0.1);  border-left: 2px solid rgba(58,143,212,0.5);  }
+.role-card.pirate .note { background: rgba(231,76,60,0.1);   border-left: 2px solid rgba(231,76,60,0.5);   }
+.role-card.revo   .note { background: rgba(230,126,34,0.1);  border-left: 2px solid rgba(230,126,34,0.5);  }
+
+/* ── BADGES ── */
+.badge {
+  font-size: 0.65rem;
+  font-family: 'Cinzel', serif;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.badge-amiral   { background: rgba(58,143,212,0.2);  color: var(--marine-glow); border: 1px solid rgba(58,143,212,0.4);  }
+.badge-capitaine{ background: rgba(231,76,60,0.2);   color: var(--pirate-glow); border: 1px solid rgba(231,76,60,0.4);   }
+.badge-revo     { background: rgba(230,126,34,0.2);  color: var(--revo-glow);   border: 1px solid rgba(230,126,34,0.4);  }
+
+/* ── SPACERS ── */
+.spacer-sm { height: 1rem; }
+.spacer-md { height: 1.5rem; }
+.spacer-lg { height: 2rem; }
+
+/* ── MODPACK BUTTON ── */
+.modpack-btn {
+  display: inline-block;
+  margin-top: 1.2rem;
+  padding: 8px 20px;
+  border-radius: 20px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: all 0.2s;
+  background: rgba(212,175,55,0.08);
+}
+.modpack-btn:hover { background: rgba(212,175,55,0.18); }
+
+.modpack-btn-inline {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 7px 18px;
+  border-radius: 20px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: all 0.2s;
+  background: rgba(212,175,55,0.08);
+}
+.modpack-btn-inline:hover { background: rgba(212,175,55,0.18); }
+
+/* ── RULES BLOCKS ── */
+.rules-block {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.1rem 1.3rem;
+  margin-bottom: 1rem;
+  background: rgba(255,255,255,0.02);
+}
+.rules-block-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+}
+.rules-block strong { color: var(--text); font-weight: 700; }
+.rules-block em { color: var(--text-muted); }
+
+@media (min-width: 900px) {
+  .rules-block { padding: 1.4rem 1.8rem; }
+  .rules-block-title { font-size: 0.9rem; }
 }
 
-.role-card:hover {
-  transform: scale(1.05);
-  box-shadow: 5px 5px 20px rgba(0,0,0,0.4);
-}
-
-/* Couleurs par camp */
-.role-card.marine {
-  background-color: #4FAFFF;
-  border: 2px solid #1E3AAE;
-  color: #fff;
-}
-
-.role-card.pirate {
-  background-color: #8B4513;
-  border: 2px solid #5C2E0A;
-  color: #fff;
-}
-
-.role-card.revolutionnaire {
-  background-color: #28A745;
-  border: 2px solid #1E7E34;
-  color: #fff;
-}
-
-.role-header {
-  font-weight: bold;
-  font-size: 1.2rem;
-  padding: 0.5rem;
-}
-
-/* ===== MODAL ===== */
-.modal {
+/* ── MODAL ── */
+.modal-overlay {
   display: none;
   position: fixed;
+  inset: 0;
+  background: rgba(5, 8, 20, 0.85);
   z-index: 1000;
-  left: 0;
-  top: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.modal-overlay.open { display: flex; }
+
+.modal-box {
+  position: relative;
+  max-width: 540px;
   width: 100%;
-  height: 100%;
-  overflow-y: auto;
-  background-color: rgba(0,0,0,0.85);
-  padding: 40px 0;
-  transition: 0.3s;
+  border-radius: 14px;
+  border: 1px solid var(--border-glow);
+  background: #0f1525;
+  padding: 0;
+  overflow: hidden;
+  animation: modal-in 0.2s ease;
 }
 
-.modal-content {
-  background-color: #fff;
-  margin: auto;
-  padding: 30px;
-  border-radius: 20px;
-  width: 90%;
-  max-width: 900px;
-  color: #111;
-  position: relative;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.7);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 1.15rem;
-  line-height: 1.6;
+@keyframes modal-in {
+  from { opacity: 0; transform: scale(0.95) translateY(8px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
 }
+
+.modal-faction-bar {
+  height: 4px;
+  width: 100%;
+}
+.modal-faction-bar.marine { background: var(--marine-glow); }
+.modal-faction-bar.pirate { background: var(--pirate-glow); }
+.modal-faction-bar.revo   { background: var(--revo-glow); }
+
+.modal-close {
+  position: absolute;
+  top: 12px; right: 14px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.15s;
+}
+.modal-close:hover { color: var(--text); }
 
 .modal-header {
-  text-align: center;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  align-items: baseline;
+  gap: 12px;
+  padding: 1.4rem 1.5rem 0.3rem;
 }
-
-.modal-header h3 {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+.modal-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
 }
+.modal-name.marine { color: var(--marine-glow); }
+.modal-name.pirate { color: var(--pirate-glow); }
+.modal-name.revo   { color: var(--revo-glow); }
 
-.modal-header img {
-  width: 250px;
-  height: 250px;
-  object-fit: contain;
-  background-color: rgba(255,255,255,0.1);
-  border-radius: 15px;
-  margin-bottom: 20px;
-  border: 3px solid rgba(0,0,0,0.2);
+.modal-badge { }
+
+.modal-title {
+  padding: 0 1.5rem 0.9rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-style: italic;
 }
 
 .modal-body {
-  width: 100%;
+  padding: 0 1.5rem;
+  font-size: 1rem;
+  color: var(--text);
+  line-height: 1.65;
 }
 
-.modal-body p {
-  margin-bottom: 15px;
-}
-
-.modal-body .section {
-  margin-bottom: 15px;
-}
-
-.modal-body .section-title {
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-bottom: 5px;
-}
-
-.close {
-  color: #fff;
-  position: absolute;
-  top: 15px;
-  right: 25px;
-  font-size: 35px;
-  font-weight: bold;
-  cursor: pointer;
-  text-shadow: 1px 1px 3px #000;
-}
-
-.close:hover {
-  color: #f00;
-}
-
-/* ===== BOUTON MODE SOMBRE ===== */
-#dark-mode-btn {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  padding: 0.5rem 1rem;
-  border: none;
+.modal-note {
+  margin: 1rem 1.5rem 1.5rem;
+  padding: 0.7rem 0.9rem;
   border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 0.95rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-  transition: all 0.4s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
+  font-size: 0.88rem;
+  font-style: italic;
+  color: var(--text-muted);
+  display: none;
 }
+.modal-note.marine { background: rgba(58,143,212,0.1);  border-left: 3px solid rgba(58,143,212,0.6);  display: block; }
+.modal-note.pirate { background: rgba(231,76,60,0.1);   border-left: 3px solid rgba(231,76,60,0.6);   display: block; }
+.modal-note.revo   { background: rgba(230,126,34,0.1);  border-left: 3px solid rgba(230,126,34,0.6);  display: block; }
 
-#dark-mode-btn span {
-  display: inline-block;
-  transition: transform 0.4s ease;
-}
+/* carte cliquable */
+.role-card { cursor: pointer; }
 
-#dark-mode-btn:hover {
-  background-color: #eee;
-}
-
-/* ===== MODE SOMBRE ===== */
-body.dark-mode {
-  background-color: #121212;
-  color: #e0e0e0;
-}
-
-body.dark-mode header {
-  background: linear-gradient(90deg, #222, #444);
-  color: #fff;
-}
-
-body.dark-mode footer {
-  background: linear-gradient(90deg, #222, #444);
-  color: #fff;
-}
-
-body.dark-mode .introduction {
-  background-color: #1e1e1e;
-  color: #e0e0e0;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.7);
-}
-
-body.dark-mode .role-card.marine {
-  background: linear-gradient(135deg, #1A2D5A, #1E3AAE);
-  border-color: #0D1B3A;
-  color: #fff;
-}
-
-body.dark-mode .role-card.pirate {
-  background: linear-gradient(135deg, #4B2E1A, #5C2E0A);
-  border-color: #2E1A0D;
-  color: #fff;
-}
-
-body.dark-mode .role-card.revolutionnaire {
-  background: linear-gradient(135deg, #1B4622, #28A745);
-  border-color: #0D2411;
-  color: #fff;
-}
-
-body.dark-mode .role-card:hover {
-  transform: scale(1.05);
-  box-shadow: 0 15px 35px rgba(0,0,0,0.8);
-}
-
-body.dark-mode .modal-content {
-  background-color: #1e1e1e;
-  color: #e0e0e0;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.85);
-}
-
-body.dark-mode .modal-header img {
-  border: 3px solid rgba(255,255,255,0.2);
-  background-color: rgba(255,255,255,0.05);
-}
-
-body.dark-mode .close {
-  color: #fff;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
-}
-
-body.dark-mode #dark-mode-btn {
-  background-color: #333;
-  color: #fff;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-}
-
-body.dark-mode #dark-mode-btn:hover {
-  background-color: #555;
-}
-
-body.dark-mode #dark-mode-btn span {
-  transform: rotate(360deg);
-}
-
-/* ===== Responsive ===== */
-@media (max-width: 768px) {
-  .role-card {
-    font-size: 0.95rem;
-    padding: 0.8rem;
-  }
-  .modal-header img {
-    width: 180px;
-    height: 180px;
-  }
-  .modal-content {
-    font-size: 1rem;
-    padding: 20px;
-  }
-  .modal-header h3 {
-    font-size: 1.8rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .role-navigation {
-    flex-direction: column;
-    gap: 0.3rem;
-  }
-  .filter-btn {
-    width: 100%;
-    text-align: center;
-  }
+@media (max-width: 500px) {
+  .modal-name { font-size: 1.3rem; }
+  .modal-body { font-size: 0.95rem; }
 }

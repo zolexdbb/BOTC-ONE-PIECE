@@ -1,94 +1,224 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Le Loup Garou – One Piece</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="icon" href="img/logo.webp" type="image/png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BotC — One Piece Edition</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <img src="img/Logo_OP.png" alt="One Piece Logo" class="logo">
-    <h1>Le Loup Garou — One Piece</h1>
-    <button id="dark-mode-btn">🌙 Mode sombre</button>
-  </header>
 
-  <main>
-    <!-- INTRODUCTION -->
-    <section class="introduction">
-      <p>Ce document décrit les règles et rôles pour la version <strong>One Piece</strong> de <em>Blood on the Clocktower</em>.</p>
-
-      <h2>⚓ Introduction</h2>
-      <p>Bienvenue dans <strong>Le Loup Garou – One Piece Édition</strong> ! Trois factions s’affrontent :</p>
-      <ul>
-        <li><strong>La Marine 👮‍♂️ :</strong> cherche à éliminer Pirates et Révolutionnaires.</li>
-        <li><strong>Les Pirates ☠️ :</strong> veulent tuer l’Amiral en chef <strong>Sengoku</strong>.</li>
-        <li><strong>Les Révolutionnaires 🔥 :</strong> sèment la confusion chez les Pirates mais gagnent avec eux.</li>
-      </ul>
-
-      <h2>⚙️ Règles générales</h2>
-      <ul>
-        <li>Le jeu alterne entre <strong>nuit</strong> (actions secrètes) et <strong>jour</strong> (discussion et vote d’exécution).</li>
-        <li>Les joueurs morts peuvent parler mais ne votent qu’une seule fois après leur mort.</li>
-        <li>Le MJ contrôle l’ordre des actions et peut fausser certaines informations selon les pouvoirs.</li>
-        <li>Les Révolutionnaires peuvent être ajoutés ou retirés selon la composition (voir rôle de Garp).</li>
-      </ul>
-
-      <h2>🏆 Conditions de victoire</h2>
-      <ul>
-        <li><strong>Les Pirates ☠️ :</strong> gagnent si Sengoku meurt.</li>
-        <li><strong>La Marine ⚓ :</strong> gagne si tous les Pirates et Révolutionnaires sont morts.</li>
-        <li><strong>Les Révolutionnaires 🔥 :</strong> gagnent avec les Pirates.</li>
-      </ul>
-
-      <h2>💡 Astuces pour les joueurs</h2>
-      <ul>
-        <li>Notez bien vos observations et les actions nocturnes pour déduire les rôles.</li>
-        <li>Communiquez subtilement pendant la journée, surtout si vous êtes Révolutionnaire.</li>
-        <li>Certains rôles peuvent vous tromper : vérifiez toujours les informations avant de prendre des décisions critiques.</li>
-        <li>Les actions de nuit doivent être utilisées stratégiquement pour maximiser vos chances de victoire.</li>
-      </ul>
-    </section>
-
-    <!-- NAVIGATION CAMP -->
-    <nav class="role-navigation">
-      <button class="filter-btn" data-camp="all">Tous</button>
-      <button class="filter-btn" data-camp="marine">Marines</button>
-      <button class="filter-btn" data-camp="pirate">Pirates</button>
-      <button class="filter-btn" data-camp="revolutionnaire">Révolutionnaires</button>
-    </nav>
-
-    <!-- CONTAINER DES ROLES -->
-    <div id="roles-container"></div>
-  </main>
-
-  <!-- MODAL POUR AFFICHER LES RÔLES -->
-  <div id="role-modal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
+    <div class="modal-box" id="modal-box" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-faction-bar" id="modal-faction-bar"></div>
       <div class="modal-header">
-        <h3 id="modal-title"></h3>
-        <img id="modal-img" src="img/placeholder.png" alt="Personnage">
+        <span class="modal-name" id="modal-name"></span>
+        <span class="modal-badge" id="modal-badge"></span>
       </div>
-      <div class="modal-body">
-        <div class="section">
-          <div class="section-title">Pouvoir / Action la nuit :</div>
-          <p id="modal-power"></p>
-        </div>
-        <div class="section">
-          <div class="section-title">Explication / Action claire :</div>
-          <p id="modal-explication"></p>
-        </div>
-      </div>
+      <div class="modal-title" id="modal-title"></div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-note" id="modal-note"></div>
     </div>
   </div>
 
-  <footer>
-    <p>© 2026 – One Piece BOTC | Créé pour la version One Piece de Blood on the Clocktower</p>
-  </footer>
+  <div class="wrap">
 
-  <script src="roles.js"></script>
-  <script src="app.js"></script>
+    <!-- HERO -->
+    <header class="hero">
+      <div class="hero-skull">☠️</div>
+      <h1>Blood on the Clocktower<br>One Piece Edition</h1>
+      <p class="hero-sub">Script personnalisé — Guide des rôles &amp; règles</p>
+      <a class="modpack-btn" href="https://drive.google.com/uc?export=download&id=1ff4bNFC7x-hcLPnR9MAx1MEc0jsWR9Lf" target="_blank">
+        ⬇ Télécharger le modpack
+      </a>
+    </header>
+
+    <!-- NAV -->
+    <nav class="nav">
+      <button class="nav-btn" data-tab="all"    onclick="show('all')">Tout voir</button>
+      <button class="nav-btn" data-tab="rules"  onclick="show('rules')">⚙️ Règles</button>
+      <button class="nav-btn" data-tab="marine" onclick="show('marine')">👮 Marine</button>
+      <button class="nav-btn" data-tab="pirate" onclick="show('pirate')">☠️ Pirates</button>
+      <button class="nav-btn" data-tab="revo"   onclick="show('revo')">🔥 Révolutionnaires</button>
+    </nav>
+
+    <!-- TOUT VOIR -->
+    <section class="section" id="s-all">
+      <p class="intro-desc">
+        Trois factions s'affrontent dans les eaux du Grand Line. Le MJ gère les tours de nuit
+        et distribue les informations selon les capacités de chaque rôle.
+      </p>
+
+      <div class="intro-grid">
+        <div class="faction-pill marine">
+          <div class="pill-icon">👮</div>
+          <div class="pill-name">La Marine</div>
+          <p>Cherche à éliminer Pirates et Révolutionnaires</p>
+        </div>
+        <div class="faction-pill pirate">
+          <div class="pill-icon">☠️</div>
+          <div class="pill-name">Les Pirates</div>
+          <p>Veulent tuer l'Amiral en chef Sengoku</p>
+        </div>
+        <div class="faction-pill revo">
+          <div class="pill-icon">🔥</div>
+          <div class="pill-name">Les Révolutionnaires</div>
+          <p>Sèment la confusion, gagnent avec les Pirates</p>
+        </div>
+      </div>
+
+      <div class="victory-box">
+        <h3>Conditions de victoire</h3>
+        <div class="victory-item"><span class="icon">☠️</span><span class="cond">Pirates :</span><span>Sengoku meurt.</span></div>
+        <div class="victory-item"><span class="icon">⚓</span><span class="cond">Marine :</span><span>Tous les Pirates et Révolutionnaires sont morts.</span></div>
+        <div class="victory-item"><span class="icon">🔥</span><span class="cond">Révolutionnaires :</span><span>Gagnent avec les Pirates.</span></div>
+      </div>
+
+      <div class="spacer-lg"></div>
+      <p class="section-title">Marine</p>
+      <div class="cards-grid" id="marine-all"></div>
+      <p class="section-title">Pirates</p>
+      <div class="cards-grid" id="pirate-all"></div>
+      <p class="section-title">Révolutionnaires</p>
+      <div class="cards-grid" id="revo-all"></div>
+    </section>
+
+    <!-- RÈGLES -->
+    <section class="section" id="s-rules">
+
+      <div class="rules-block">
+        <div class="rules-block-title">🗺️ La map</div>
+        <ul class="rules-list">
+          <li>Les joueurs évoluent sur une <strong>map Minecraft</strong> dédiée. Chacun possède sa propre chambre où il se retire la nuit.</li>
+          <li>Une <strong>salle du conseil</strong> centrale sert de point de rassemblement pour les annonces et les votes.</li>
+          <li>Durant la phase de jour, les joueurs sont libres de se déplacer sur la map pour discuter en privé ou en groupe.</li>
+        </ul>
+      </div>
+
+      <div class="rules-block">
+        <div class="rules-block-title">🌙 Phase de nuit</div>
+        <ul class="rules-list">
+          <li>Quand la nuit tombe, tous les joueurs regagnent <strong>leur chambre</strong> et ne doivent pas en sortir.</li>
+          <li>Le MJ se déplace de chambre en chambre pour visiter les joueurs un par un et leur transmettre les informations liées à leur rôle.</li>
+          <li>Les actions nocturnes (meurtre de Sengoku, poison d'Aramaki, protection de Kuma…) sont résolues en coulisse par le MJ durant ces visites.</li>
+          <li>Un joueur empoisonné par Aramaki peut recevoir de fausses infos ou voir son pouvoir annulé — sans le savoir.</li>
+          <li><strong>Ordre indicatif des visites — première nuit :</strong> Marines (révélation mutuelle) → XDrake → Ace → Robin → Nami → Sanji → Katakuri.</li>
+          <li><strong>Ordre indicatif — nuits suivantes :</strong> Aramaki → Kuma → Sengoku → Sabo → Chopper → Moria → Katakuri → Brook (si mort).</li>
+        </ul>
+      </div>
+
+      <div class="rules-block">
+        <div class="rules-block-title">☀️ Phase de jour</div>
+        <ul class="rules-list">
+          <li>Au lever du jour, tous les joueurs se rassemblent dans la <strong>salle du conseil</strong> pour l'annonce du MJ : mort(s) de la nuit ou nuit calme.</li>
+          <li>Après l'annonce, les joueurs sont libres de <strong>se balader sur la map</strong> pour discuter, négocier et former des alliances.</li>
+          <li>En fin de journée, tout le monde retourne dans la salle du conseil pour la <strong>phase de débat et de vote</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="rules-block">
+        <div class="rules-block-title">🗳️ Vote et exécution</div>
+        <ul class="rules-list">
+          <li>Dans la salle du conseil, chaque joueur vivant peut accuser et nommer un autre joueur. Le nommé peut se défendre.</li>
+          <li>Un vote à la majorité des joueurs <em>vivants</em> est nécessaire pour aboutir à une exécution. Une seule exécution par jour.</li>
+          <li>Les joueurs morts peuvent toujours parler mais ne votent qu'<strong>une seule fois</strong> après leur mort.</li>
+          <li>Si aucune majorité n'est atteinte ou si plusieurs joueurs ont le même score, personne n'est exécuté ce jour.</li>
+          <li>Sabo peut ajouter un vote supplémentaire contre une cible via son action de la nuit précédente.</li>
+          <li>Roger peut provoquer une exécution immédiate si un Pirate le nomme — mais uniquement si le nominant est bien Pirate.</li>
+          <li>Si Dragon est exécuté lors du vote, les Pirates perdent instantanément.</li>
+          <li>Après le vote, les joueurs retournent dans <strong>leur chambre</strong> pour la nuit suivante.</li>
+        </ul>
+      </div>
+
+      <div class="rules-block">
+        <div class="rules-block-title">ℹ️ Informations et rôles spéciaux</div>
+        <ul class="rules-list">
+          <li>Ivankov peut apparaître comme n'importe quel rôle, y compris Marine, pour les rôles à info.</li>
+          <li>Usopp reçoit toujours de fausses infos correspondant à son rôle de façade Pirate.</li>
+          <li>XDrake possède un rôle de façade Pirate qui change chaque nuit — les autres joueurs peuvent donc avoir des infos contradictoires sur lui.</li>
+        </ul>
+      </div>
+
+      <div class="rules-block">
+        <div class="rules-block-title">🎮 Modpack — Obligatoire</div>
+        <ul class="rules-list">
+          <li>Le modpack est <strong>indispensable</strong> pour jouer : sans lui, il est impossible de rejoindre la partie.</li>
+          <li>Il inclut le <strong>chat vocal</strong> intégré utilisé pendant les phases de nuit et de jour, ainsi que des éléments de décoration pour la map.</li>
+          <li>Suis le tutoriel correspondant à ton launcher ci-dessous.</li>
+        </ul>
+      </div>
+
+      <div class="rules-block">
+        <div class="rules-block-title">🔨 Installation — CurseForge</div>
+        <ul class="rules-list">
+          <li>Télécharge le fichier ci-dessous.</li>
+          <li>Ouvre CurseForge → clique sur <strong>Import</strong>.</li>
+          <li>Sélectionne le fichier <strong>.zip</strong> téléchargé.</li>
+          <li>Lance le modpack depuis ta liste de profils et rejoins la partie.</li>
+        </ul>
+        <a class="modpack-btn-inline" href="https://drive.google.com/uc?export=download&id=1Xm_NHKwS1sJyKbkQOqU06-rR0bM6Al0z" target="_blank">
+          ⬇ Télécharger le fichier CurseForge (.zip)
+        </a>
+      </div>
+
+      <div class="rules-block">
+        <div class="rules-block-title">🚀 Installation — TLauncher</div>
+        <ul class="rules-list">
+          <li>Télécharge le fichier ci-dessous.</li>
+          <li>Ouvre TLauncher → clique sur <strong>TL Mod</strong> → <strong>Créer</strong>.</li>
+          <li>Donne un nom au choix, sélectionne la version <strong>1.20.1</strong>, ne touche pas à la version du chargeur → <strong>Créer</strong>.</li>
+          <li>Clique sur l'icône 🔧 (tournevis + clé) → <strong>Installation manuelle</strong> → sélectionne le <strong>.zip</strong> téléchargé → <strong>Installer</strong>.</li>
+          <li>Clique sur la flèche à côté du nom du modpack → 🔧 → <strong>Ouvrir le dossier du modpack</strong>.</li>
+          <li>Ouvre le dossier <strong>mods</strong> → décompresse le <strong>.zip</strong> dedans → puis supprime le <strong>.zip</strong>.</li>
+          <li>Lance le modpack et rejoins la partie.</li>
+        </ul>
+        <a class="modpack-btn-inline" href="https://drive.google.com/uc?export=download&id=1zgPUo47CaJt_twKHHJfLFTURXgcgITa1" target="_blank">
+          ⬇ Télécharger le fichier TLauncher (.zip)
+        </a>
+      </div>
+
+      <div class="rules-block">
+        <div class="rules-block-title">🏆 Conditions de victoire</div>
+        <div class="victory-box" style="margin-top:0; border:none; padding: 0;">
+          <div class="victory-item"><span class="icon">☠️</span><span class="cond">Pirates :</span><span>Sengoku meurt (sauf si Akainu prend le relais).</span></div>
+          <div class="victory-item"><span class="icon">⚓</span><span class="cond">Marine :</span><span>Tous les Pirates et Révolutionnaires sont éliminés.</span></div>
+          <div class="victory-item"><span class="icon">🔥</span><span class="cond">Révolutionnaires :</span><span>Gagnent automatiquement avec les Pirates.</span></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- MARINE -->
+    <section class="section" id="s-marine">
+      <div class="cards-header marine">
+        <span class="faction-icon">👮</span>
+        <h2>La Marine</h2>
+      </div>
+      <div class="cards-grid" id="marine-solo"></div>
+    </section>
+
+    <!-- PIRATES -->
+    <section class="section" id="s-pirate">
+      <div class="cards-header pirate">
+        <span class="faction-icon">☠️</span>
+        <h2>Les Pirates</h2>
+      </div>
+      <div class="cards-grid" id="pirate-solo"></div>
+    </section>
+
+    <!-- RÉVOLUTIONNAIRES -->
+    <section class="section" id="s-revo">
+      <div class="cards-header revo">
+        <span class="faction-icon">🔥</span>
+        <h2>Les Révolutionnaires</h2>
+      </div>
+      <div class="cards-grid" id="revo-solo"></div>
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
